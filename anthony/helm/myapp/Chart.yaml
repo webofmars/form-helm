@@ -4,3 +4,8 @@ description: A Helm chart for Kubernetes
 name: myapp
 type: application
 version: 0.1.0
+
+dependencies:
+  - name: common
+    repository: file://charts/common
+    version: 2.31.3
