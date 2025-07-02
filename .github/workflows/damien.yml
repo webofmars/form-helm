@@ -14,7 +14,7 @@ jobs:
         helm lint damien/helm/myapp
 
     - name: helm unitest
-      run: |:
+      run: |
         helm plugin install --version $HELM_UNITTEST_VERSION https://github.com/helm-unittest/helm-unittest > /dev/null
         helm unittest --strict -f 'unittests/**/*.yaml' ./charts/woodpecker/charts/server/ ./charts/woodpecker/charts/agent
 
