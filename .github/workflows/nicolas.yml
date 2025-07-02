@@ -12,8 +12,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    steps:
-      lint:
-        image: alpine/helm:3
-        commands:
-          - helm lint nicolas/helm/myapp
+    - name: lint
+      image: alpine/helm:3
+      commands:
+        - helm lint nicolas/helm/myapp
