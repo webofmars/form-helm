@@ -14,16 +14,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: List files in nicolas/helm/myapp
-      run: |
-        echo "📁 Listing files in nicolas/helm/myapp directory:"
-        echo "================================================"
-
-        if [ -d "nicolas/helm/myapp" ]; then
-          echo "✅ Directory exists. Contents:"
-
-        else
-          echo "❌ Directory 'nicolas/helm/myapp' does not exist"
-          echo "📂 Available directories at root level:"
-          ls -la ./
-        fi
+    steps:
+      lint:
+        image: alpine/helm:3
+        commands:
+          - helm lint nicolas/helm/myapp
