@@ -6,29 +6,30 @@ on:
     branches: [main]
   workflow_dispatch:
 
-steps:
-  lint:
-    image: alpine/helm:3
-    commands:
-      - helm lint damien/helm/myapp
+jobs:
+  steps:
+    lint:
+      image: alpine/helm:3
+      commands:
+        - helm lint damien/helm/myapp
 
-  unittest:
-    image: alpine/helm:3
-    environment:
-      # NB: we can't use the official helmunittest/helm-unittest image as it's rootless and WP does not support that
-      # renovate: datasource=github-releases depName=helm-unittest/helm-unittest
-      HELM_UNITTEST_VERSION: v0.6.1
-    commands:
-      - helm plugin install --version $HELM_UNITTEST_VERSION https://github.com/helm-unittest/helm-unittest > /dev/null
-      - helm unittest --strict -f 'unittests/**/*.yaml' ./charts/woodpecker/charts/server/ ./charts/woodpecker/charts/agent
+    unittest:
+      image: alpine/helm:3
+      environment:
+        # NB: we can't use the official helmunittest/helm-unittest image as it's rootless and WP does not support that
+        # renovate: datasource=github-releases depName=helm-unittest/helm-unittest
+        HELM_UNITTEST_VERSION: v0.6.1
+      commands:
+        - helm plugin install --version $HELM_UNITTEST_VERSION https://github.com/helm-unittest/helm-unittest > /dev/null
+        - helm unittest --strict -f 'unittests/**/*.yaml' ./charts/woodpecker/charts/server/ ./charts/woodpecker/charts/agent
 
-  kubeconform:
-    image: alpine/helm:3
-    commands:
-      - helm plugin install https://github.com/dadav/helm-schema > /dev/null
-      - helm schema damien/helm/myapp
+    kubeconform:
+      image: alpine/helm:3
+      commands:
+        - helm plugin install https://github.com/dadav/helm-schema > /dev/null
+        - helm schema damien/helm/myapp
 
-  package:
-    image: alpine/helm:3
-    commands:
-      - helm package damien/helm/myapp
+    package:
+      image: alpine/helm:3
+      commands:
+        - helm package damien/helm/myapp
