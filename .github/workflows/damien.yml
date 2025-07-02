@@ -2,14 +2,12 @@ name: damien
 
 # Trigger the workflow manually or on every push
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
   helm:
     runs-on: alpine/helm:3
-    
+
     steps:
     - name: helm lint
       run: |
