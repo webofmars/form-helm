@@ -14,5 +14,5 @@ jobs:
 
     - name: lint
       image: alpine/helm:3
-      commands:
+      run:
         - helm lint nicolas/helm/myapp
