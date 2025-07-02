@@ -28,3 +28,23 @@ jobs:
           echo "📂 Available directories at root level:"
           ls -la ./
         fi
+
+    - name: test anthony/helm/myapp
+      run: |
+        echo "helm lint anthony/helm/myapp:"
+        echo "================================================"
+
+        helm lint anthony/helm/myapp/
+
+    - name: ct install anthony/helm/myapp
+      run: |
+        echo "package anthony/helm/myapp:"
+        echo "================================================"
+
+        ct install antrhony/helm/myapp
+
+    - name: publish anthony/helm/myapp
+      run: |
+        echo "package anthony/helm/myapp:"
+        echo "================================================"
+
